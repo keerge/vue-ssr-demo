@@ -48,7 +48,8 @@ renderer = createRenderer(bundle, {
 const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
 })
-app.get('/bridge', require('../imgBridge'))
+app.get('/bridge', require('./imgBridge'))
+app.use('/api', require('./server/router'))
 app.use(compression({ threshold: 0 }))
 app.use('/static', serve('./dist/static', true))
 app.use('/public', serve('./public', true))

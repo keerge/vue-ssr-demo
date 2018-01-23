@@ -14,6 +14,10 @@ $.getScrollTop = () => {
 $.getClientHeight = () => {
   return document.body.clientHeight
 }
+
+$.isScrollEnd = () => {
+  return $.getHeight() + $.getScrollTop() === $.getClientHeight()
+}
 $.throttle = (fn, interval) => {
   var __self = fn
   var timer
@@ -35,5 +39,11 @@ $.throttle = (fn, interval) => {
       __self.apply(__me, args)
     }, interval || 500)
   }
+}
+$.bridgeGuokeImg = (content) => {
+  content = content.replace(/https\:\/\/1-im.guokr.com/g, '/bridge?url=https://1-im.guokr.com')
+  content = content.replace(/https\:\/\/2-im.guokr.com/g, '/bridge?url=https://2-im.guokr.com')
+  content = content.replace(/https\:\/\/3-im.guokr.com/g, '/bridge?url=https://3-im.guokr.com')
+  return content
 }
 module.exports = $

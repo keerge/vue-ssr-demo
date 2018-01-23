@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="nav-fixed-pd ">
       <div class="header">
         <div class="container">
             <div class="header-logo">
-              首页
+              首页 
             </div>
         </div>
       </div>
@@ -16,11 +16,11 @@
                     </div>
                     <div class="column">
                         <div class="column-l new-swiper">
-                            swiper
+                            <ui-swiper text="swiper"></ui-swiper>
                         </div>
                         <div class="column-r new-article">
                           <ul>
-                          <li v-for="item in article.recosArticle" :key="item.url"> <a>{{item.title}}</a></li>
+                          <li v-for="item in article.recosArticle" :key="item.url"><router-link :to="item.url.match(/article\/(\S*)\//)?`/scientific/${item.url.match(/article\/(\S*)\//)[1]}`:''">{{item.title}}</router-link> </li>
                           </ul>
                         </div>
                     </div>
@@ -31,21 +31,27 @@
                     </div>
                     <div class="column">
                          <div class="column-l article-list">
-                              <div href="" class="first">
-                                <img :src="article.shiwuYan[0][0].pic" alt="" />
-                                <div class="cover"><a href="">{{article.shiwuYan[0][0].title}}</a></div>
+                              <div class="first">
+                               <router-link :to="`15yan/${article.shiwuYan[0][0].id}`" :title="article.shiwuYan[0][0].title"> <img :src="article.shiwuYan[0][0].pic|imgBridge" :alt="article.shiwuYan[0][0].title" /></router-link>
+                                <div class="cover"><router-link :to="`15yan/${article.shiwuYan[0][0].id}`">{{article.shiwuYan[0][0].title}}</router-link></div>
                               </div>
                               <ul class="list-ul">
-                                <li v-for="item in article.shiwuYan[0].slice(1,article.shiwuYan[0].length)" :key="item.url"><a>{{item.title}}</a></li>
+                                <li v-for="item in article.shiwuYan[0].slice(1,article.shiwuYan[0].length)" :key="item.url">
+                                  <router-link :to="`15yan/${item.id}`" :title="item.title">{{item.title}}</router-link>
+                                  </li>
                               </ul>
                           </div>
                           <div class="column-r article-list">
                               <div href="" class="first">
-                                <img :src="article.shiwuYan[1][0].pic" alt="" />
-                                <div class="cover"><a href="">{{article.shiwuYan[1][0].title}}</a></div>
+                                <router-link :to="`15yan/${article.shiwuYan[1][0].id}`" :title="article.shiwuYan[1][0].title"><img :src="article.shiwuYan[1][0].pic|imgBridge" :alt="article.shiwuYan[1][0].title" /></router-link>
+                                <div class="cover">
+                                  <router-link :to="`15yan/${article.shiwuYan[1][0].id}`">{{article.shiwuYan[1][0].title}}</router-link>
+                                  </div>
                               </div>
                               <ul class="list-ul">
-                                <li v-for="item in article.shiwuYan[1].slice(1,article.shiwuYan[1].length)" :key="item.url"><a>{{item.title}}</a></li>
+                                <li v-for="item in article.shiwuYan[1].slice(1,article.shiwuYan[1].length)" :key="item.url">
+                                   <router-link :to="`15yan/${item.id}`" :title="item.title">{{item.title}}</router-link>
+                                </li>
                               </ul>
                           </div> 
                     </div>
@@ -76,10 +82,10 @@
            <div class="books-listWrap">
              <div class="book-item" v-for="item in newBooks" :key="item.url">
                <div class="img">
-                 <a href="" ><img :src="item.pic" alt="" /></a>
+                 <router-link  :to="`book/${item.id}`" :title="item.title"><img :src="item.pic" :alt="item.title"/></router-link>
                </div>
                <div>
-                 <a href="" class="title ellipsis" :title="item.title">{{item.title}}</a>
+                 <router-link :to="`book/${item.id}`" class="title ellipsis"  :title="item.title">{{item.title}}</router-link>
                  <p class="author">{{item.author}}</p>
                </div>
              </div>
@@ -93,37 +99,37 @@
             <div class="photo-wrap">
                 <div class="column first-row">
                   <div class="column-l big-photo">
-                      <img :src="photo[0].pic|imgBridge" alt="" class="vetically"/>
-                      <div class="title vetically"><span>{{photo[0].title}}</span></div>
+                       <router-link :to="`photo/${photo[11].id}`" :title="photo[11].title"> <img :src="photo[11].pic|imgBridge" alt="" class="vetically"/></router-link>
+                      <div class="title vetically"><span><router-link :to="`photo/${photo[11].id}`">{{photo[11].title}}</router-link></span></div>
                   </div>
                   <div class="column-r">
                     <div class="min-photo-item">
-                        <img :src="photo[1].pic|imgBridge" alt="" class="vetically"/>
-                        <div class="title"><span>{{photo[1].title}}</span> </div>
+                        <router-link :to="`photo/${photo[9].id}`" :title="photo[9].title"> <img :src="photo[9].pic|imgBridge" alt="" class="vetically"/></router-link>
+                        <div class="title"><span><router-link :to="`photo/${photo[9].id}`">{{photo[9].title}}</router-link></span> </div>
                     </div>
                     <div class="min-photo-item">
-                        <img :src="photo[2].pic|imgBridge" alt="" class="vetically"/>
-                        <div class="title"><span>{{photo[2].title}}</span> </div>
+                       <router-link :to="`photo/${photo[2].id}`" :title="photo[2].title">  <img :src="photo[2].pic|imgBridge" alt="" class="vetically"/></router-link>
+                        <div class="title"><span><router-link :to="`photo/${photo[2].id}`">{{photo[2].title}}</router-link></span> </div>
                     </div>
                   </div>
                 </div>
                 <div class="column">
                   <div class="md-photo-item column-l">
                     <div class="img">
-                      <img :src="photo[3].pic|imgBridge" alt="" />
+                     <router-link :to="`photo/${photo[12].id}`" :title="photo[12].title"> <img :src="photo[12].pic|imgBridge" alt="" /></router-link>
                     </div>
                     <div class="bottom">
-                      <div class="title"><a href="">{{photo[3].title}}</a></div>
-                      <div class="date">{{photo[3].date}}</div>
+                      <div class="title"><router-link :to="`photo/${photo[12].id}`" >{{photo[12].title}}</router-link></div>
+                      <!-- <div class="date">{{photo[12].date}}</div> -->
                     </div>
                   </div>
                    <div class="md-photo-item column-r">
                     <div class="img">
-                      <img :src="photo[4].pic|imgBridge" alt="" />
+                      <router-link :to="`photo/${photo[15].id}`" :title="photo[15].title"><img :src="photo[15].pic|imgBridge" alt="" /></router-link>
                     </div>
                     <div class="bottom">
-                      <div class="title"><a href="">{{photo[4].title}}</a></div>
-                      <div class="date">{{photo[4].date}}</div>
+                      <div class="title"><router-link :to="`photo/${photo[15].id}`">{{photo[15].title}}</router-link></div>
+                      <!-- <div class="date">{{photo[15].date}}</div> -->
                     </div>
                   </div>
                 </div>
@@ -135,6 +141,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import uiSwiper from '@/components/swiper'
 export default {
   name: 'index',
   computed: {
@@ -144,11 +151,14 @@ export default {
       photo: 'homePhoto'
     })
   },
+  components: {
+    uiSwiper
+  },
   preFetch({ store }) {
     return store.dispatch(`getHomeData`)
   },
   title: '主页',
-  preCache: true,
+  // preCache: true,
   data() {
     return {
 

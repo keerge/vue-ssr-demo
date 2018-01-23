@@ -7,11 +7,10 @@ export default context => {
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents()
       if (matchedComponents.length < 0) {
-        //
         reject({ code: 404 })
       }
       Promise.all(matchedComponents.map(component => {
-        return component.preFetch && component.preFetch({ store })
+        return component.preFetch && component.preFetch({ store, router: router.currentRoute })
       })).then(() => {
         context.state = store.state
         resolve(app)

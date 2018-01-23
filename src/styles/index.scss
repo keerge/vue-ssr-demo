@@ -84,3 +84,30 @@ body {
   text-overflow:ellipsis;
   white-space: nowrap;
 }
+.nav-fixed-pd {
+  padding-top: 41px;
+}
+.label-wrap{
+  border-bottom: 1px solid #e8e8e8;
+  padding: 6px 0;
+  font-size: 0;
+  .label {
+    display: inline-block;
+    font-size: 12px;
+    color: #fff;  
+    padding: 2px 10px; 
+    margin-left: 4px;
+  }
+  .label-1 {
+      background: #60BAF9;
+  }
+  .label-2 {
+      background: #FF9536;
+  }
+  .label-3 {
+      background: #85C199;
+  }
+  .label-hot {
+    background: #f96860;
+  }
+}

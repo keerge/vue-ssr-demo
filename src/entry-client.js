@@ -28,7 +28,7 @@ router.onReady(() => {
         if (c.preCache) {
           c.preFetch = null
         }
-        return preFetch.call(c, { store, route: to })
+        return preFetch.call(c, { store, router: to })
       }
     })).then(() => {
       NProgress.done()

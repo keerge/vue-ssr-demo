@@ -1,9 +1,9 @@
 
 const charset = require('superagent-charset')
 const superagent = charset(require('superagent'))
-module.exports = function(parm) {
+module.exports = function(options, params) {
   return new Promise((resolve, reject) => {
-    superagent[parm.method || 'get'](parm.url).charset(parm.charset || 'utf-8').end((err, res) => {
+    superagent[options.method || 'get'](options.url).send(params || {}).charset(options.charset || 'utf-8').end((err, res) => {
       if (err) {
         console.log(err, 'err!!!!')
         reject(err)

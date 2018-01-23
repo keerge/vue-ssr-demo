@@ -10,6 +10,7 @@ function getTitle(vm) {
 const serverTitleMixin = {
   created() {
     const title = getTitle(this)
+
     if (title) {
       this.$ssrContext.title = `${title} - vue ssr template`
     }

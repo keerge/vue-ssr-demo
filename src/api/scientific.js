@@ -21,6 +21,15 @@ export default {
         page
       }
     })
+  },
+  getArticle(id) {
+    return request({
+      url: `/api/scientific/${id}`,
+      method: 'get',
+      params: {
+
+      }
+    })
   }
 }
 

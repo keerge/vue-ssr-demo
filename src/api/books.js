@@ -1,16 +1,15 @@
 import request from '@/utils/request'
 export default {
-  getNewsList() {
+  getBooksData() {
     return request({
-      url: '/newslist',
+      url: '/api/books',
       method: 'get'
     })
   },
-  getNewsDetails(id) {
+  getBooksDetail(id) {
     return request({
-      url: '/newsDetails',
-      method: 'get',
-      params: { id }
+      url: '/api/books/' + id,
+      method: 'get'
     })
   }
 }

@@ -2,18 +2,7 @@ import home from '@/api/home'
 const createModule = () => {
   const state = {
     homeArticle: {
-      shiwuYan: [
-        [
-          {
-
-          }
-        ],
-        [
-          {
-
-          }
-        ]
-      ]
+      shiwuYan: [[{}], [{}]]
     },
     homeNewBooks: [],
     homePhoto: []
@@ -24,7 +13,7 @@ const createModule = () => {
     homePhoto: state => state.homePhoto
   }
   const mutations = {
-    GET_HOME_DATA(state, values) {
+    SET_HOME_DATA(state, values) {
       state.homeArticle = values[0]
       state.homeNewBooks = values[1]
       state.homePhoto = values[2]
@@ -33,7 +22,7 @@ const createModule = () => {
   const actions = {
     getHomeData({ commit, state }) {
       return home.getHomeData().then(values => {
-        commit('GET_HOME_DATA', values.data)
+        commit('SET_HOME_DATA', values.data)
       }).catch(err => {
         console.log(err)
       })

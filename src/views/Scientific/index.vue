@@ -1,21 +1,21 @@
 <template>
-  <div>
+  <div class="nav-fixed-pd">
       <div class="header">
         <h1>科学</h1>
         <div class="desc">一个科学频道</div>
       </div>
       <div class="container">
         <div class="card-wrap">
-            <div class="card" v-for="item in article.result">
+            <div class="card" v-for="item in article.result" >
               <div class="img">
-                <img :src="item.small_image|imgBridge" alt="">
+                <router-link :to="`/scientific/${item.id}`"><img :src="item.small_image|imgBridge" alt=""></router-link>
               </div>
             <div class="content">
                 <div class="label-wrap">
                   <span :class="labelClasses(label)" v-for="label in item.channel_keys.length>0?item.channel_keys:['not-null']">{{label|labelFormat}}</span>
                 </div>
                 <div class="bottom">
-                  <a class="title ellipsis">{{item.title}}</a>
+                  <router-link :to="`/scientific/${item.id}`" class="title ellipsis">{{item.title}}</router-link>
                   <p class="date">{{item.date_created}} </p>
                 </div>
             </div>
@@ -31,8 +31,7 @@ export default {
   name: 'index',
   computed: {
     ...mapGetters({
-      article: 'scientificArticle',
-      isLoading: 'scientificArticle_isloading'
+      article: 'scientificArticle'
     })
   },
   preFetch({ store }) {
@@ -70,9 +69,12 @@ export default {
   },
   mounted() {
     window.onscroll = $.throttle(() => {
-      if ($.getHeight() + $.getScrollTop() === $.getClientHeight()) {
+      if ($.isScrollEnd()) {
         if (!this.isLoading) {
-          this.$store.dispatch('ADD_SCIENTIFIC', ++this.page)
+          this.isLoading = true
+          this.$store.dispatch('ADD_SCIENTIFIC', ++this.page).then(() => {
+            this.isLoading = false
+          })
         }
       }
     }, 500)
@@ -121,30 +123,6 @@ export default {
     img {
       width: 100%;
       height: 100%;
-    }
-  }
-  .label-wrap{
-    border-bottom: 1px solid #e8e8e8;
-    padding: 6px 0;
-    font-size: 0;
-    .label {
-      display: inline-block;
-      font-size: 12px;
-      color: #fff;  
-      padding: 2px 10px; 
-      margin-left: 4px;
-    }
-    .label-1 {
-        background: #60BAF9;
-    }
-    .label-2 {
-        background: #FF9536;
-    }
-    .label-3 {
-        background: #85C199;
-    }
-    .label-hot {
-      background: #f96860;
     }
   }
   .bottom{

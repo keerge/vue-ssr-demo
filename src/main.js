@@ -5,18 +5,18 @@ import App from './App'
 import { createRouter } from './router'
 import { createStore } from './vuex/store'
 import titleMixin from './utils/title'
+import mixins from './utils/mixins'
 // import { sync } from 'vuex-router-sync'
 Vue.config.productionTip = false
 
 // mixin for handling title
-Vue.mixin(titleMixin)
-
 // global filters
 import * as filters from './utils/filters'
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
+Vue.mixin(titleMixin)
+Vue.mixin(mixins)
 export function createApp() {
   const router = createRouter()
   var store = createStore()

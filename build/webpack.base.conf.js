@@ -25,6 +25,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       'scss_vars':'@/styles/var.scss',
       '@': resolve('src'),
+      'assets':resolve('src/assets')
     }
   },
   module: {

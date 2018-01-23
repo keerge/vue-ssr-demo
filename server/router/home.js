@@ -29,7 +29,7 @@ const getGuoKrIndexData = function() {
         data.shiwuYan[i].push({
           title: j === 0 ? $(el_li).find('.cont a').text() : $(el_li).find('a').text(),
           pic: j === 0 ? $(el_li).find('.img img').attr('src') : null,
-          url: j === 0 ? $(el_li).find('.cont a').attr('href') : $(el_li).find('a').attr('href')
+          id: (j === 0 ? $(el_li).find('.cont a').attr('href') : $(el_li).find('a').attr('href')).split('/')[5]
         })
       })
     })
@@ -37,33 +37,43 @@ const getGuoKrIndexData = function() {
   })
 }
 const getDouBanNewBooks = function() {
-  return spider({ url: 'https://book.douban.com/latest/' }).then((text) => {
+  // return spider({ url: 'https://book.douban.com/latest/' }).then((text) => {
+  //   const $ = cheerio.load(text)
+  //   const data = []
+  //   $('#content ul.cover-col-4 li').each((i, el) => {
+  //     data.push({
+  //       title: $(el).find('h2 a').text(),
+  //       url: $(el).find('.cover').attr('href'),
+  //       pic: $(el).find('.cover img').attr('src'),
+  //       author: $(el).find('.color-gray').text().split('/')[0]
+  //     })
+  //   })
+  //   return data
+  // })
+  return spider({ url: 'http://www.duokan.com/' }).then((text) => {
     const $ = cheerio.load(text)
-    const data = []
-    $('#content ul.cover-col-4 li').each((i, el) => {
-      data.push({
-        title: $(el).find('h2 a').text(),
-        url: $(el).find('.cover').attr('href'),
+    return $('#module-recommend .j-bookitm').map((i, el) => {
+      return {
+        title: $(el).find('.title').text(),
+        id: $(el).find('.title').attr('href').split('/')[2],
         pic: $(el).find('.cover img').attr('src'),
-        author: $(el).find('.color-gray').text().split('/')[0]
-      })
-    })
-    return data
+        author: $(el).find('.u-author span').text()
+      }
+    }).get()
   })
 }
 
 const getPocoChoicePhoto = function() {
-  return spider({ url: 'http://my.poco.cn/act/act_list.htx&user_id=53751805&act_type_id=0&is_vouch=1', charset: 'gb2312' }).then(text => {
+  return spider({ url: 'http://photomood.pp.163.com', charset: 'gbk' }).then(text => {
     const $ = cheerio.load(text)
-    const data = []
-    $('.ul_act_list li').not('.d_line').each((i, el) => {
-      data.push({
-        title: $(el).find('.title a').eq(0).text(),
-        pic: $(el).find('.summary p').eq(0).find('img').attr('src'),
-        date: $(el).find('.info').not('a').text()
-      })
-    })
-    return data
+    return $('#p_contents .w-cover').map((i, el) => {
+      return {
+        title: $(el).find('a').eq(0).attr('title'),
+        pic: $(el).find('a').eq(0).find('img').attr('src'),
+        date: 123,
+        id: $(el).find('a').eq(0).attr('href').split('/')[5].replace('.html', '')
+      }
+    }).get()
   })
 }
 

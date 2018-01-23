@@ -32,6 +32,10 @@ export function createRouter() {
           path: '/scientific/',
           component: _import('Scientific/index'),
           meta: { title: '科学' }
+        }, {
+          path: '/scientific/:id',
+          component: _import('Scientific/article'),
+          meta: { title: '科学' }
         }]
       },
       {
@@ -43,6 +47,11 @@ export function createRouter() {
           path: '/book/',
           component: _import('Book/index'),
           meta: { title: '读书' }
+        },
+        {
+          path: '/book/:id',
+          component: _import('Book/detail'),
+          meta: { title: '读书detail' }
         }]
       },
       {
@@ -54,6 +63,10 @@ export function createRouter() {
           path: '/15yan/',
           component: _import('15yan/index'),
           meta: { title: '15言' }
+        }, {
+          path: '/15yan/:id',
+          component: _import('15yan/article'),
+          meta: { title: '15言detail' }
         }]
       },
       {
@@ -65,10 +78,18 @@ export function createRouter() {
           path: '/photo/',
           component: _import('Photo/index'),
           meta: { title: '摄影' }
+        }, {
+          path: '/photo/:id',
+          component: _import('Photo/detail'),
+          meta: { title: '摄影detail' }
         }]
       },
+
       { path: '*', redirect: '/404', hidden: true }
-    ]
+    ],
+    scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    }
   })
   return router
 }

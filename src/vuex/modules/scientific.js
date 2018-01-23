@@ -1,41 +1,44 @@
 import scientificApi from '@/api/scientific'
+import $ from '@/utils/common'
 const createModule = () => {
   const state = {
     scientificArticle: {
       result: []
     },
-    isloading: false
+    articleDetail: {}
   }
   const getters = {
     scientificArticle: state => state.scientificArticle,
-    scientificArticle_isloading: state => state.isloading
+    scientificArticleDetail: state => state.articleDetail
   }
   const mutations = {
-    SET_Scientific_Article(state, values) {
+    SET_S_ARTICLE(state, values) {
       state.scientificArticle.result = values.result
       state.scientificArticle.offset = values.offset
     },
-    ADD_Scientific_Article(state, values) {
+    ADD_S_ARTICLE(state, values) {
       state.scientificArticle.result = state.scientificArticle.result.concat(values.result)
       state.scientificArticle.offset = values.offset
     },
-    SET_LOADING(state, value) {
-      state.isloading = value
+    SET_ARTICLE(state, value) {
+      value.content = $.bridgeGuokeImg(value.content)
+      state.articleDetail = value
     }
   }
   const actions = {
     GET_SCIENTIFIC({ commit, state }, page) {
-      commit('SET_LOADING', true)
       return scientificApi.getScientific(page).then((values) => {
-        commit('SET_LOADING', false)
-        commit('SET_Scientific_Article', values)
+        commit('SET_S_ARTICLE', values)
       })
     },
     ADD_SCIENTIFIC({ commit, state }, page) {
-      commit('SET_LOADING', true)
       return scientificApi.getScientific(page).then((values) => {
-        commit('SET_LOADING', false)
-        commit('ADD_Scientific_Article', values)
+        commit('ADD_S_ARTICLE', values)
+      })
+    },
+    getScientificArticle({ commit, state }, id) {
+      return scientificApi.getArticle(id).then(res => {
+        commit('SET_ARTICLE', res)
       })
     }
   }

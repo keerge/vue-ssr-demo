@@ -1,9 +1,8 @@
 <template>
   <div class="app-wrapper">
       <nav-bar></nav-bar>
-      <keep-alive>
       <router-view></router-view>
-      </keep-alive>
+      <back-to-top></back-to-top>
       <public-footer></public-footer>
   </div>
 </template>
@@ -11,11 +10,13 @@
 <script>
 import navBar from './components/Navbar'
 import publicFooter from './components/publicFooter'
+import backToTop from './components/backToTop'
 export default {
   name: 'layout',
   components: {
     navBar,
-    publicFooter
+    publicFooter,
+    backToTop
   },
   computed: {
 
@@ -31,4 +32,5 @@ export default {
   height: 100%;
   width: 100%;
 }
+
 </style>

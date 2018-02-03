@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://localhost:8080', //  'process.env.BASE_API', // api的baseURL
+  baseURL: process.env.BASE_API, //  'process.env.BASE_API', // api的baseURL
   timeout: 5000 // 请求超时时间
 })
 
